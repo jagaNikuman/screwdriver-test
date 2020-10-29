@@ -1,0 +1,12 @@
+jobs:
+  main:
+    requires: [~pr, ~commit]
+    # Steps definition block.
+    steps:
+      - echo: echo "test message"
+      - go-build: go build
+      - ls: ls -al
+  second_job:
+    requires: [main] # second_job will run after main job is done
+    steps:
+      - docker-build: docker run --rm docker/whalesay cowsay "build now"
